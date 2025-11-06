@@ -1,0 +1,3 @@
+export { genres } from "../data";
+
+
