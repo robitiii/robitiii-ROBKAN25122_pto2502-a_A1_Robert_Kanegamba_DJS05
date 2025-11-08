@@ -41,10 +41,10 @@ export default function ShowDetail() {
       <ErrorNote message={error} />
       {!loading && !error && show && (
         <>
-          <section style={headerCard}>
+          <section className="detailHeader" style={headerCard}>
             <img src={show.image} alt={show.title} style={{ width: 220, height: 220, borderRadius: 8, objectFit: "cover" }} />
             <div>
-              <h1 style={{ marginTop: 0 }}>{show.title}</h1>
+              <h1 style={{ marginTop: 0, fontSize: 30 }}>{show.title}</h1>
               <p style={{ color: "#374151" }}>{show.description}</p>
               <div style={{ marginBottom: 8 }}>
                 {genreNames.map((g) => (
@@ -63,6 +63,11 @@ export default function ShowDetail() {
               </div>
             </div>
           </section>
+          <style>{`
+            @media (max-width: 640px) {
+              .detailHeader { grid-template-columns: 1fr; }
+            }
+          `}</style>
 
           <h3 style={{ margin: "18px 0 8px" }}>Current Season</h3>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
