@@ -20,6 +20,11 @@ const headerCard = {
   padding: 16 
 };
 
+/**
+ * Show detail page component displaying full show information, seasons, and episodes.
+ * Fetches show data by ID from route parameters and handles loading, error, and empty states.
+ * @returns {JSX.Element}
+ */
 export default function ShowDetail() {
   const { id } = useParams();
   const [show, setShow] = useState(null);
@@ -131,23 +136,30 @@ export default function ShowDetail() {
             }
           `}</style>
 
-          <h3 style={{ margin: "18px 0 8px" }}>Current Season</h3>
-          <div className="seasonHeader" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-            <div className="seasonInfo" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 56, height: 56, borderRadius: 12, background: `url(${show.seasons?.[seasonIdx]?.image}) center/cover no-repeat` }} />
-              <div>
-                <div style={{ fontWeight: 600 }}>{show.seasons?.[seasonIdx]?.title}</div>
-                <small style={{ color: "#6b7280" }}>
-                  {show.seasons?.[seasonIdx]?.episodes?.length || 0} Episodes • Released {new Date(show.seasons?.[seasonIdx]?.releaseDate).getFullYear()}
-                </small>
+          {show.seasons && show.seasons.length > 0 ? (
+            <>
+              <h3 style={{ margin: "18px 0 8px" }}>Current Season</h3>
+              <div className="seasonHeader" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <div className="seasonInfo" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ width: 56, height: 56, borderRadius: 12, background: `url(${show.seasons?.[seasonIdx]?.image}) center/cover no-repeat` }} />
+                  <div>
+                    <div style={{ fontWeight: 600 }}>{show.seasons?.[seasonIdx]?.title}</div>
+                    <small style={{ color: "#6b7280" }}>
+                      {show.seasons?.[seasonIdx]?.episodes?.length || 0} Episodes • Released {show.seasons?.[seasonIdx]?.releaseDate ? new Date(show.seasons?.[seasonIdx]?.releaseDate).getFullYear() : "N/A"}
+                    </small>
+                  </div>
+                </div>
+                <div className="seasonSelectWrapper">
+                  <SeasonSelect seasons={show.seasons} value={seasonIdx} onChange={setSeasonIdx} />
+                </div>
               </div>
+              <SeasonList season={show.seasons?.[seasonIdx]} />
+            </>
+          ) : (
+            <div style={{ marginTop: 24, padding: 24, textAlign: "center", color: "#6b7280" }}>
+              No seasons available for this show.
             </div>
-            <div className="seasonSelectWrapper">
-              <SeasonSelect seasons={show.seasons} value={seasonIdx} onChange={setSeasonIdx} />
-            </div>
-          </div>
-
-          <SeasonList season={show.seasons?.[seasonIdx]} />
+          )}
         </>
       )}
     </div>
