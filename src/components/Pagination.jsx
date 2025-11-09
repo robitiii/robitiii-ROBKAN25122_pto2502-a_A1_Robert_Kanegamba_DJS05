@@ -30,7 +30,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
   const buttonBase = {
     padding: "10px 16px",
     borderRadius: 8,
-    border: "1px solid #e5e7eb",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "#e5e7eb",
     background: "#fff",
     cursor: "pointer",
     fontSize: 14,
