@@ -112,9 +112,9 @@ export default function Home() {
   };
 
   return (
-    <div style={container}>
-      <h2 style={{ marginBottom: 8, fontSize: 28 }}>Browse Podcasts</h2>
-      <div style={controls}>
+    <div className="homeContainer" style={container}>
+      <h2 className="homeTitle" style={{ marginBottom: 8, fontSize: 28 }}>Browse Podcasts</h2>
+      <div className="homeControls" style={controls}>
         <input type="search" placeholder="Search shows…" defaultValue={search} onChange={(e) => setParam("q", e.target.value)} style={input} />
         <select value={genre} onChange={(e) => setParam("g", e.target.value)} style={select}>
           <option value="all">All Genres</option>
@@ -133,27 +133,60 @@ export default function Home() {
       {loading && <Loading text="Loading podcasts…" />}
       <ErrorNote message={error} />
 
-      {!loading && !error && (
+      {!loading && !error && shows.length === 0 && (
+        <p style={{ textAlign: "center", padding: "32px 0", color: "#6b7280" }}>
+          No podcasts available.
+        </p>
+      )}
+
+      {!loading && !error && shows.length > 0 && (
         <>
-          <div style={grid}>
-            {paginatedShows.map((show) => (
-              <ShowCard key={show.id} show={show} />
-            ))}
-          </div>
-          {filtered.length === 0 && (
+          {filtered.length === 0 ? (
             <p style={{ textAlign: "center", padding: "32px 0", color: "#6b7280" }}>
               No podcasts match your filters.
             </p>
-          )}
-          {filtered.length > 0 && (
-            <Pagination
-              currentPage={validPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
+          ) : (
+            <>
+              <div className="homeGrid" style={grid}>
+                {paginatedShows.map((show) => (
+                  <ShowCard key={show.id} show={show} />
+                ))}
+              </div>
+              <Pagination
+                currentPage={validPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
           )}
         </>
       )}
+      <style>{`
+        @media (max-width: 768px) {
+          .homeContainer {
+            padding: 0 12px !important;
+          }
+          .homeTitle {
+            font-size: 24px !important;
+          }
+          .homeControls {
+            flex-direction: column;
+          }
+          .homeControls input,
+          .homeControls select {
+            width: 100%;
+            min-width: 100%;
+          }
+          .homeGrid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .homeTitle {
+            font-size: 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
