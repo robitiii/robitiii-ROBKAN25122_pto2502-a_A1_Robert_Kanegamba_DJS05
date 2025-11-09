@@ -1,90 +1,76 @@
-# DJS04 – React Podcast App with Search, Sort, Filter & Pagination
+# 🎧 DJS05 – Detail Page and Navigation
 
-This project is a **React-based podcast browsing application** that allows users to explore podcasts using powerful features such as search, sort, filter by genre, and automatic pagination. It builds upon earlier solutions (DJS03) and introduces shared state management using the React Context API.
+In this project, you’ll **level up your React skills** by building a **detailed show page** within a podcast app.  
+This is where **dynamic routing**, **data fetching**, and **smooth user navigation** come together to create a rich, interactive experience.
 
-## Core Functionality
+---
 
-- **Fetch Podcasts from API**
+## 🚀 Project Overview
 
-  - Data is loaded from: `https://podcast-api.netlify.app/shows`
-  - Podcasts include metadata like title, updated date, genres, image, and seasons
+The goal is simple:  
+When users click on a podcast, they should be taken to a **unique page** displaying all details about that show.
 
-- **Search**
+You’ll use **route parameters** to load the correct data dynamically and ensure each podcast has a **clean, shareable URL**.  
+The project also includes building a **smart navigation system** that lets users browse through **seasons** and **episodes** easily — all while maintaining a polished, responsive interface.
 
-  - Users can search podcasts by title
-  - Case-insensitive and dynamically updates the result list
+---
 
-- **Sort**
+## 🎯 Core Learning Goals
 
-  - Sort options include:
-    - Default
-    - Newest (by updated date)
-    - Oldest
-    - Title A → Z
-    - Title Z → A
+By completing this project, you will:
 
-- **Genre Filter**
+- Master **React Router** for dynamic route handling  
+- Practise **state management** and **data fetching** from external APIs  
+- Build **modular, reusable components**  
+- Manage **loading**, **error**, and **empty states** gracefully  
+- Design a **responsive layout** that works across all devices  
+- Learn to **preserve state** (like filters and searches) when navigating between pages  
 
-  - Podcasts can be filtered by genre using a dropdown
-  - All available genres are loaded from static data
+---
 
-- **Pagination**
+## 🧩 Features and Functionality
 
-  - The app dynamically adjusts how many podcast cards to show per page
-  - Uses screen width to compute optimal layout (e.g., 2 rows × n columns)
-  - Defaults to 10 items per page for tablet and smaller screens
+Here’s what your app should do:
 
-- **Shared State with Context API**
-  - Uses a `PodcastProvider` to manage global podcast state
-  - Exposes search term, sort key, selected genre, page, and filtered podcasts
-  - Components consume state via `usePodcasts()` or `PodcastContext`
+- 🔗 Navigate to **show pages** using dynamic routes  
+- 🌐 **Fetch show details** from an external API using each show’s ID  
+- ⚠️ Handle **loading**, **error**, and **empty states** clearly  
+- 📝 Display **full show details**:
+  - Title  
+  - Image  
+  - Description  
+  - Genres  
+  - Last updated date  
+- 🎬 Let users explore **seasons and episodes** with a clear, expandable list  
+- 🧭 Maintain **filters and search terms** when returning to the homepage  
+- 📱 Ensure the app looks and feels **polished and responsive**
 
-## Project Structure
+---
 
-```
-/src
-│
-├── /api
-│ └── fetchPodcasts.js # Fetch podcasts from the API
-│
-├── /components
-│ ├── Header.jsx # Top navigation bar with controls
-│ ├── PodcastCard.jsx # Individual podcast preview card
-│ ├── PodcastGrid.jsx # Grid layout of podcast cards
-│
-├── /context
-│ └── PodcastContext.jsx # React context for global podcast state
-│
-├── /utils
-│ └── formatDate.js # Formats ISO date to readable format
-│
-├── App.jsx # Root app component
-└── main.jsx # React entry point
-```
+## 🛠️ Tech Stack
 
-## How It Works
+- **React** (Hooks + Router)
+- **JavaScript (ES6+)**
+- **CSS Modules / Tailwind / Styled Components** (your choice)
+- **External API** for podcast data
+- **Vite / Create React App** (for setup and bundling)
 
-- When the app loads, it fetches all podcast data once.
-- The data is passed into the `PodcastProvider`, which handles:
-  - Searching titles
-  - Sorting by selected key
-  - Filtering by genre
-  - Splitting into pages based on screen size
-- Components like `PodcastGrid` display the processed data.
+---
 
-## How to Run
+## 🧠 Concepts You’ll Strengthen
 
-1. Clone the project or download the source code.
-2. Install dependencies using:
+- Dynamic Routing with `react-router-dom`
+- Handling Asynchronous Data (API requests)
+- Conditional Rendering and State Management
+- Component Composition and Reusability
+- Responsive UI Design
+- Navigation History and State Persistence
 
+---
+
+## 📦 Getting Started
+
+1. Clone the project and install dependencies:
    ```bash
    npm install
-   ```
-
-3. Run the development server with:
-
-   ```bash
    npm run dev
-   ```
-
-4. Open http://localhost:5173 in your browser to view the app.
