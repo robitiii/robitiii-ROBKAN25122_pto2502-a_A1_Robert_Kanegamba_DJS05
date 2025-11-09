@@ -1,3 +1,9 @@
+/**
+ * Error message display component.
+ * Returns null if no message is provided.
+ * @param {Object} props
+ * @param {string} [props.message] - Error message to display
+ */
 export default function ErrorNote({ message }) {
   if (!message) return null;
   return (
