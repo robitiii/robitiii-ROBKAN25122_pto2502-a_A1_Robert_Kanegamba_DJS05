@@ -1,5 +1,11 @@
 import { truncate } from "../lib/format.jsx";
 
+/**
+ * Card component displaying a single episode with image, number, title, and description.
+ * @param {Object} props
+ * @param {Object} props.episode - Episode object with episode number, title, and description
+ * @param {string} props.seasonImage - URL of the season image to display
+ */
 export default function EpisodeCard({ episode, seasonImage }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "56px 1fr", gap: 12, background: "#fff", border: "1px solid #eee", borderRadius: 12, padding: 12, marginBottom: 10 }}>

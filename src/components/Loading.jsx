@@ -1,3 +1,8 @@
+/**
+ * Loading spinner component with customizable text.
+ * @param {Object} props
+ * @param {string} [props.text="Loading…"] - Text to display next to the spinner
+ */
 export default function Loading({ text = "Loading…" }) {
   return (
     <div style={{ padding: 24, display: "flex", gap: 12, alignItems: "center" }}>
