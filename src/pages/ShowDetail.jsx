@@ -10,7 +10,15 @@ import SeasonSelect from "../components/SeasonSelect.jsx";
 import SeasonList from "../components/SeasonList.jsx";
 
 const wrap = { maxWidth: 1100, margin: "24px auto", padding: "0 16px" };
-const headerCard = { display: "grid", gridTemplateColumns: "220px 1fr", gap: 16, background: "#fff", border: "1px solid #eee", borderRadius: 12, padding: 16 };
+const headerCard = { 
+  display: "grid", 
+  gridTemplateColumns: "220px 1fr", 
+  gap: 16, 
+  background: "#fff", 
+  border: "1px solid #eee", 
+  borderRadius: 12, 
+  padding: 16 
+};
 
 export default function ShowDetail() {
   const { id } = useParams();
@@ -36,14 +44,14 @@ export default function ShowDetail() {
   const genreNames = useMemo(() => (show?.genres || []).map((g) => ALL_GENRES.find((x) => x.id === g)?.title || g), [show]);
 
   return (
-    <div style={wrap}>
+    <div className="showDetailContainer" style={wrap}>
       {loading && <Loading text="Loading show…" />}
       <ErrorNote message={error} />
       {!loading && !error && show && (
         <>
           <section className="detailHeader" style={headerCard}>
-            <img src={show.image} alt={show.title} style={{ width: 220, height: 220, borderRadius: 8, objectFit: "cover" }} />
-            <div>
+            <img className="detailHeaderImage" src={show.image} alt={show.title} style={{ width: 220, height: 220, borderRadius: 8, objectFit: "cover" }} />
+            <div className="detailHeaderContent">
               <h1 style={{ marginTop: 0, fontSize: 30 }}>{show.title}</h1>
               <p style={{ color: "#374151" }}>{show.description}</p>
               <div style={{ marginBottom: 8 }}>
@@ -51,7 +59,7 @@ export default function ShowDetail() {
                   <GenreTag key={g}>{g}</GenreTag>
                 ))}
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, color: "#4b5563" }}>
+              <div className="detailHeaderStats" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, color: "#4b5563" }}>
                 <div>
                   <div style={{ fontSize: 12 }}>Total Seasons</div>
                   <div style={{ fontWeight: 600 }}>{show.seasons?.length || show.seasons}</div>
@@ -64,14 +72,68 @@ export default function ShowDetail() {
             </div>
           </section>
           <style>{`
-            @media (max-width: 640px) {
-              .detailHeader { grid-template-columns: 1fr; }
+            @media (max-width: 768px) {
+              .showDetailContainer {
+                padding: 0 12px !important;
+                margin: 16px auto !important;
+              }
+              .detailHeader {
+                grid-template-columns: 1fr !important;
+                justify-items: center;
+                padding: 12px !important;
+              }
+              .detailHeaderImage {
+                width: 100% !important;
+                max-width: 300px;
+                height: auto !important;
+                aspect-ratio: 1;
+                margin-bottom: 16px;
+              }
+              .detailHeaderContent {
+                width: 100%;
+                text-align: left;
+              }
+              .detailHeaderContent h1 {
+                font-size: 22px !important;
+                text-align: center;
+                margin-bottom: 12px !important;
+              }
+              .detailHeaderContent p {
+                text-align: left;
+                font-size: 14px;
+                line-height: 1.6;
+              }
+              .detailHeaderStats {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+                margin-top: 12px;
+              }
+              .seasonHeader {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 12px !important;
+              }
+              .seasonSelectWrapper {
+                width: 100%;
+              }
+              .seasonSelectWrapper select {
+                width: 100%;
+                max-width: 100%;
+              }
+            }
+            @media (max-width: 480px) {
+              .detailHeaderImage {
+                max-width: 100%;
+              }
+              .detailHeaderContent h1 {
+                font-size: 20px !important;
+              }
             }
           `}</style>
 
           <h3 style={{ margin: "18px 0 8px" }}>Current Season</h3>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div className="seasonHeader" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <div className="seasonInfo" style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 56, height: 56, borderRadius: 12, background: `url(${show.seasons?.[seasonIdx]?.image}) center/cover no-repeat` }} />
               <div>
                 <div style={{ fontWeight: 600 }}>{show.seasons?.[seasonIdx]?.title}</div>
@@ -80,7 +142,9 @@ export default function ShowDetail() {
                 </small>
               </div>
             </div>
-            <SeasonSelect seasons={show.seasons} value={seasonIdx} onChange={setSeasonIdx} />
+            <div className="seasonSelectWrapper">
+              <SeasonSelect seasons={show.seasons} value={seasonIdx} onChange={setSeasonIdx} />
+            </div>
           </div>
 
           <SeasonList season={show.seasons?.[seasonIdx]} />
